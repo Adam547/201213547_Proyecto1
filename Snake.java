@@ -22,7 +22,6 @@ public class Snake {
     public static int cx;
     public static int cy;
     public static int punteo;
-    public static String L[][]= new String[40][40];
     public static int c;
     public static String N[]= new String[5];
     public static int P[] = new int[5];
@@ -33,10 +32,23 @@ public class Snake {
     public static int temp5 =0;
     public static int temp3 =0;
     public static int temp6 =0;
+    public static int temp7 =0;
+    public static int temp8 =0;
+    public static int temp9 =0;
+    public static int temp10 =0;
+    public static int temp11 =0;
+    public static int temp12 =0;
     public static int cont;
     public static int ast;
     public static int Tempx[] = new int[100];
     public static int Tempy[] = new int[100];
+    public static int Lx[] = new int[100];
+    public static int Ly[] = new int[100];
+    public static int i;
+    public static int Bx[] = new int[5];
+    public static int By[] = new int[5];
+    public static int Valor;
+    
 
   
     /**
@@ -49,6 +61,7 @@ public class Snake {
     }
 
     public static void Desarrollador(){
+        Datos_de_Jugadores();
         Reinicio();
         Menu_Principal();
     }
@@ -86,7 +99,6 @@ public class Snake {
        
     }
     public static void Menu_Principal(){
-       Datos_de_Jugadores();
        Limpieza();
        punteo = 0;
        System.out.println("xxxxxxxx  x     x      x      x    x  xxxxxx");
@@ -278,28 +290,44 @@ public class Snake {
           check2 = 0;
           if (cx < cy){
           punteo = punteo + Math.abs((Dato/2)-cy);
+          Valor = Math.abs((Dato/2)-cy);
           }else{
           punteo = punteo + Math.abs((Dato/2)-cx);
+          Valor = Math.abs((Dato/2)-cy);
+          Bitacora();
           }
       }
    }
    public static void Control_Snake(){
        if(check4 == true){ 
-         for (int h = 0;h==5;h++){   
-           L[1][c+1]= Snake[1][c+1];
-            c = c+1;
+         for (int h = 0;h<=Largo;h++){   
+           Tempx[h]=5;
+           Tempy[h]=h;
          }
        check4 = false;
-            if (check3 == true){
-              c = c+1;
-              for(int S = 0;S == c;S++){
-                 
-              }
+           if (check2 == 1){
+               i = i+1;
+            for(int z =Largo+i;z>0;z--){
+                
+                Tempx[z]= px;
+                Tempy[z]= py;
+                Lx[z-c]= Tempx[z];
+                Ly[z-1]= Tempy[z];
+                Tempx[z-1]=Lx[z-1];
+                Tempy[z-1]=Ly[z-1];
+                
             }
+            Tabla[Tempx[1]][Tempy[1]]=  " - ";
+            }else{
+            for(int z =Largo;z>0;z--){
+                Tempx[z]= px;
+                Tempy[z]= py;        
+            }
+            Tabla[Tempx[1]][Tempy[1]]=  " - ";
+          }   
       }
    }
    public static void Puntuaciones(){
-     Datos_de_Jugadores();
      Limpieza();
      System.out.println("            Puntuaciones                  ");
      System.out.println("  Nombre       Punteo       Tablero");
@@ -322,7 +350,7 @@ public class Snake {
    }
    public static void Datos_de_Jugadores(){
      cont = cont +1; 
-     if (cont <= 3){
+     if (cont == 1){
         N[1] = "x";
         N[2] = "x";
         N[3] = "x";
@@ -391,4 +419,20 @@ public class Snake {
         
       }
     }
+   public static void Bitacora(){
+     temp10 = temp7;
+     temp11 = temp8;
+     temp12 = temp9;
+     temp7 = Bx[1];
+     temp8 = By[1];
+     Bx[1] = cx;
+     Bx[2] = temp7;
+     Bx[3] = temp10;
+     By[1] = cy;
+     By[2] = temp8;
+     By[3] = temp11;
+     System.out.println("Fruto: "+Bx[1]+","+By[1]+" "+Valor+" pts.");
+     System.out.println("Fruto: "+Bx[2]+","+By[2]+" "+Valor+" pts.");
+     System.out.println("Fruto: "+Bx[3]+","+By[3]+" "+Valor+" pts.");
+   }
   }
