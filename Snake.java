@@ -1,4 +1,3 @@
-
 package snake;
 import java.util.Scanner;
 import java.util.Random;
@@ -8,9 +7,6 @@ import java.util.logging.Logger;
 
 
 public class Snake {
-    public String salida;
-    public String menu2;
-    public int menu;
     public static int Dato;
     public static int Largo;
     public static String Tabla[][]= new String[40][40];
@@ -29,6 +25,18 @@ public class Snake {
     public static int punteo;
     public static String L[][]= new String[50][50];
     public static int c;
+    public static String N[]= new String[5];
+    public static int P[] = new int[5];
+    public static int T[] = new int[5];
+    public static String temp ="";
+    public static String temp4 ="";
+    public static int temp2 =0;
+    public static int temp5 =0;
+    public static int temp3 =0;
+    public static int temp6 =0;
+    public static int cont;
+    public static int ast;
+  
     /**
      * @param args the command line arguments
      */
@@ -43,6 +51,7 @@ public class Snake {
     }
     
     public static void Creditos(){
+       Limpieza();
        System.out.println("Hecho por:");
         try {
                TimeUnit.SECONDS.sleep(1);
@@ -50,25 +59,32 @@ public class Snake {
                Logger.getLogger(Snake.class.getName()).log(Level.SEVERE, null, ex);
            }
        System.out.println("Adam Jose Miguel Navas Garcia");
-        try {
+       try {
                TimeUnit.SECONDS.sleep(1);
            } catch (InterruptedException ex) {
                Logger.getLogger(Snake.class.getName()).log(Level.SEVERE, null, ex);
            }
-       System.out.println("*****************************");
-        try {
+       System.out.println("Carne: 201213547");
+       try {
                TimeUnit.SECONDS.sleep(1);
            } catch (InterruptedException ex) {
                Logger.getLogger(Snake.class.getName()).log(Level.SEVERE, null, ex);
            }
-       System.out.println("Ingrese e para regresar al menu principal");
-       Scanner entrada = new Scanner(System.in);
-       String menu2 = entrada.nextLine();
-       if (menu2=="e"){
+       System.out.println("    Regresando al menu Principal: ");
+        for(ast = 0;ast<6;ast++){
+         System.out.print("******");
+         try {
+               TimeUnit.SECONDS.sleep(1);
+           } catch (InterruptedException ex) {
+               Logger.getLogger(Snake.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        }
        Desarrollador();
-       }
+       
     }
     public static void Menu_Principal(){
+       Datos_de_Jugadores();
+       Limpieza();
        System.out.println("xxxxxxxx  x     x      x      x    x  xxxxxx");
        System.out.println("x         x  x  x     x x     x  x    x");
        System.out.println("xxxxxxxx  x   x x    x   x    xx      xxxxxx");
@@ -92,16 +108,19 @@ public class Snake {
                Configuracion();
                break;
            case 2:
-               System.out.println("puntuaciones");
+               Puntuaciones();
+               break;
            case 3:
                Creditos();
                break;
            case 4:
-               System.out.println("salir");
+               System.exit(0);
+               break;
        }
         
     }
     public static void Configuracion(){
+       Limpieza();
        System.out.println("Ingrese su nombre:");
        Scanner entrada4 = new Scanner(System.in);
        Nombre = entrada4.nextLine();
@@ -116,10 +135,15 @@ public class Snake {
     }
     public static void Tablero(){
        while(Status != "Game Over"){
+       Limpieza();
        Pos_Snake();
        System.out.println("     "+Nombre+"   "+ punteo);
        for (int x=0;x<=Dato;x++){
-           for (int y=0;y<=Dato;y++){
+            for (int y=0;y<=Dato;y++){
+               if(y==0 || y==Dato){
+                 Tabla[x][y] = " X ";
+                 System.out.print(Tabla[x][y]);
+                }else{
                if(x==0 || x==Dato){
                  Tabla[x][y] = " X ";
                  System.out.print(Tabla[x][y]);
@@ -132,26 +156,20 @@ public class Snake {
                    System.out.print(Tabla[x][y]);
                  }
                 }
-              
+               }
            }
     System.out.println("");
         } 
        Movimiento();
-       Puntuacion();
+       Puntos();
     }
-    Menu_Principal();
+    Limpieza();
+    Game_Over();
     }
    public static void Limpieza(){
-   System.out.println();
-   System.out.println();
-   System.out.println();
-   System.out.println();
-   System.out.println();
-   System.out.println();
-   System.out.println();
-   System.out.println();
-   System.out.println();
-   System.out.println();
+  for (int i=0;i<50;i++){
+            System.out.println("");
+        }
    }
    public static void Pos_Snake(){
     check = check +1; 
@@ -176,6 +194,12 @@ public class Snake {
             if (Tabla[px][py]== " ■ "){
                 check3 = true;
             }
+            if (Tabla[px][py]== " @ "){
+                Status ="Game Over";
+            }
+            if (Tabla[px][py]== " X "){
+                Status ="Game Over";
+            }
             Snake[px][py] = " @ ";
             Tabla[px][py] = Snake[px][py];
             System.out.println(px +" "+ py);
@@ -184,6 +208,12 @@ public class Snake {
             py = py + 1;
             if (Tabla[px][py]== " ■ "){
                 check3 = true;
+            }
+            if (Tabla[px][py]== " @ "){
+                Status ="Game Over";
+            }
+            if (Tabla[px][py]== " X "){
+                Status ="Game Over";
             }
             Snake[px][py] = " @ ";
             Tabla[px][py] = Snake[px][py];
@@ -195,6 +225,12 @@ public class Snake {
             if (Tabla[px][py]== " ■ "){
                 check3 = true;
             }
+            if (Tabla[px][py]== " @ "){
+                Status ="Game Over";
+            }
+            if (Tabla[px][py]== " X "){
+                Status ="Game Over";
+            }
             Snake[px][py] = " @ ";
             Tabla[px][py] = Snake[px][py];
             System.out.println(px +" "+ py);
@@ -204,10 +240,18 @@ public class Snake {
             if (Tabla[px][py]== " ■ "){
                 check3 = true;
             }
+            if (Tabla[px][py]== " @ "){
+                Status ="Game Over";
+            }
+            if (Tabla[px][py]== " X "){
+                Status ="Game Over";
+            }
             Snake[px][py] = " @ ";
             Tabla[px][py] = Snake[px][py];
             System.out.println(px +" "+ py);
-            break;    
+            break;
+      case"e":
+            Status ="Game Over";
         }
    }
    
@@ -222,7 +266,7 @@ public class Snake {
        }
        }
    }
-   public static void Puntuacion(){
+   public static void Puntos(){
       if(check3 == true){
           check3 = false;
           check2 = 0;
@@ -243,9 +287,87 @@ public class Snake {
             if (check3 == true){
               c = c+1;
               for(int S = 0;S == c;S++){
-                  
+                 
               }
             }
       }
+   }
+   public static void Puntuaciones(){
+     Limpieza();
+     System.out.println("            Puntuaciones                  ");
+     System.out.println("  Nombre       Punteo       Tablero");
+     System.out.println();
+     System.out.println("     "+N[1]+"           "+P[1]+"            "+T[1]+"x"+T[1]);
+     System.out.println();
+     System.out.println("     "+N[2]+"           "+P[2]+"            "+T[2]+"x"+T[2]);
+     System.out.println();
+     System.out.println("     "+N[3]+"           "+P[3]+"            "+T[3]+"x"+T[3]);
+     System.out.println("    Regresando al menu Principal: ");
+        for(ast = 0;ast<6;ast++){
+         System.out.print("******");
+         try {
+               TimeUnit.SECONDS.sleep(1);
+           } catch (InterruptedException ex) {
+               Logger.getLogger(Snake.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        }
+       Desarrollador();
+   }
+   public static void Datos_de_Jugadores(){
+     cont = cont +1; 
+     if (cont <= 3){
+        N[1] = "x";
+        N[2] = "x";
+        N[3] = "x";
+        P[1] = 0;
+        P[2] = 0;
+        P[3] = 0;
+        T[1] = 0;
+        T[2] = 0;
+        T[3] = 0;  
+     }else{
+     temp4 = temp;
+     temp5 = temp2;
+     temp6 = temp3;
+     temp = N[1];
+     temp2 = P[1];
+     temp3 = T[1];
+     N[1] = Nombre;
+     N[2]= temp;
+     N[3]= temp4;
+     P[1] = punteo;
+     P[2] = temp2;
+     P[3] = temp5;
+     T[1] = Dato;
+     T[2] = temp3;
+     T[3] = temp6;
+     }
+   }
+   public static void Game_Over(){
+       Limpieza();
+       System.out.println("xxxxxxxx      x      x       x  xxxxxx");
+       System.out.println("x            x x     x x   x x  x");
+       System.out.println("x   xxxx    x   x    x   x   x  xxxxxx");
+       System.out.println("x      x   xxxxxxx   x       x  x");
+       System.out.println("xxxxxxxx  x       x  x       x  xxxxxxx");
+       System.out.println();
+       System.out.println();
+       try {
+               TimeUnit.SECONDS.sleep(1);
+           } catch (InterruptedException ex) {
+               Logger.getLogger(Snake.class.getName()).log(Level.SEVERE, null, ex);
+           }
+       System.out.println("xxxxxxxx  x       x  xxxxxx  xxxxxxxx");
+       System.out.println("x      x   x     x   x       x      x");
+       System.out.println("x      x    x   x    xxxxxx  xxxxxxxxx");
+       System.out.println("x      x     x x     x       x     x");
+       System.out.println("xxxxxxxx      x      xxxxxxx x       x");
+       try {
+               TimeUnit.SECONDS.sleep(2);
+           } catch (InterruptedException ex) {
+               Logger.getLogger(Snake.class.getName()).log(Level.SEVERE, null, ex);
+           }
+       Datos_de_Jugadores();
+       Menu_Principal();
    }
 }
