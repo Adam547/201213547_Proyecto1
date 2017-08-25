@@ -9,9 +9,8 @@ import java.util.logging.Logger;
 public class Snake {
     public static int Dato;
     public static int Largo;
-    public static String Tabla[][]= new String[40][40];
-    public static String Snake[][]= new String[40][40];
-    public static int max;
+    public static String Tabla[][]= new String[50][50];
+    public static String Snake[][]= new String[50][50];
     public static int check;
     public static int check2;
     public static boolean check3;
@@ -23,7 +22,7 @@ public class Snake {
     public static int cx;
     public static int cy;
     public static int punteo;
-    public static String L[][]= new String[50][50];
+    public static String L[][]= new String[40][40];
     public static int c;
     public static String N[]= new String[5];
     public static int P[] = new int[5];
@@ -36,6 +35,9 @@ public class Snake {
     public static int temp6 =0;
     public static int cont;
     public static int ast;
+    public static int Tempx[] = new int[100];
+    public static int Tempy[] = new int[100];
+
   
     /**
      * @param args the command line arguments
@@ -47,6 +49,7 @@ public class Snake {
     }
 
     public static void Desarrollador(){
+        Reinicio();
         Menu_Principal();
     }
     
@@ -85,6 +88,7 @@ public class Snake {
     public static void Menu_Principal(){
        Datos_de_Jugadores();
        Limpieza();
+       punteo = 0;
        System.out.println("xxxxxxxx  x     x      x      x    x  xxxxxx");
        System.out.println("x         x  x  x     x x     x  x    x");
        System.out.println("xxxxxxxx  x   x x    x   x    xx      xxxxxx");
@@ -124,10 +128,12 @@ public class Snake {
        System.out.println("Ingrese su nombre:");
        Scanner entrada4 = new Scanner(System.in);
        Nombre = entrada4.nextLine();
+       do{
        System.out.println("Ingrese el tamaño del tablero (valor minimo 10 - "
-               + "valor maximo 50):");
+               + "valor maximo 40):");
        Scanner entrada3 = new Scanner(System.in);
        Dato = entrada3.nextInt();
+    }while(Dato < 9 || Dato >41 );
        System.out.println("Tamaño con el que iniciara el Snake:");
        Scanner entrada5 = new Scanner(System.in);
        Largo = entrada5.nextInt();
@@ -293,15 +299,16 @@ public class Snake {
       }
    }
    public static void Puntuaciones(){
+     Datos_de_Jugadores();
      Limpieza();
      System.out.println("            Puntuaciones                  ");
      System.out.println("  Nombre       Punteo       Tablero");
      System.out.println();
-     System.out.println("     "+N[1]+"           "+P[1]+"            "+T[1]+"x"+T[1]);
+     System.out.println("   "+N[1]+"           "+P[1]+"            "+T[1]+"x"+T[1]);
      System.out.println();
-     System.out.println("     "+N[2]+"           "+P[2]+"            "+T[2]+"x"+T[2]);
+     System.out.println("   "+N[2]+"           "+P[2]+"            "+T[2]+"x"+T[2]);
      System.out.println();
-     System.out.println("     "+N[3]+"           "+P[3]+"            "+T[3]+"x"+T[3]);
+     System.out.println("   "+N[3]+"           "+P[3]+"            "+T[3]+"x"+T[3]);
      System.out.println("    Regresando al menu Principal: ");
         for(ast = 0;ast<6;ast++){
          System.out.print("******");
@@ -367,7 +374,21 @@ public class Snake {
            } catch (InterruptedException ex) {
                Logger.getLogger(Snake.class.getName()).log(Level.SEVERE, null, ex);
            }
-       Datos_de_Jugadores();
-       Menu_Principal();
+       Desarrollador();
    }
-}
+   public static void Reinicio(){
+     Status ="";
+     for (int x=0;x<=40;x++){
+            for (int y=0;y<=40;y++){
+                        Tabla[x][y] = " - ";
+                        Snake[x][y] = " - ";
+                        check = 0;
+                        check2 =0;
+                        Dato = 0;
+                        Largo = 0;
+               
+            }
+        
+      }
+    }
+  }
